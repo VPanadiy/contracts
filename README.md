@@ -22,3 +22,13 @@ An isolated SCM repository for SCC Contracts
 
 4.Push to git
 - run: `gradle publishStubsToScm`
+
+
+### LINKS
+https://cloud.spring.io/spring-cloud-contract/single/spring-cloud-contract.html#_producer_side_fraud_detection_server
+
+http://cloud-samples.spring.io/spring-cloud-contract-samples/tutorials/contracts_external.html
+
+https://github.com/spring-cloud/spring-cloud-contract/blob/master/docs/src/main/asciidoc/verifier_setup.adoc#gradle-project
+
+https://github.com/spring-cloud/spring-cloud-contract/blob/ea65ae355369d37b1fe56fd118a0e1ceef67eba4/docs/src/main/asciidoc/verifier_faq.adoc
