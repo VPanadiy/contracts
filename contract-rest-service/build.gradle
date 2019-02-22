@@ -1,30 +1,75 @@
 buildscript {
-    ext {
-        verifierVersion = '2.0.2.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${verifierVersion}"
-    }
+  ext {
+    springBootVersion = '2.0.5.RELEASE'
+    verifierVersion = '2.0.2.RELEASE'
+  }
+  repositories { mavenCentral() }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${verifierVersion}"
+  }
 }
 
 apply plugin: 'groovy'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 apply plugin: 'spring-cloud-contract'
 
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+bootJar {
+  baseName = 'contract-rest-service'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories { mavenCentral() }
+
 dependencies {
-    testCompile('org.springframework.cloud:spring-cloud-starter-contract-verifier')
+  compile('org.springframework.boot:spring-boot-starter-web')
+  testCompile('org.springframework.boot:spring-boot-starter-test')
+  testCompile('org.springframework.cloud:spring-cloud-starter-contract-verifier')
 }
 
-bootJar {
-    baseName = 'contract-rest-service'
+dependencyManagement {
+  imports {
+    mavenBom "org.springframework.cloud:spring-cloud-dependencies:Finchley.SR2"
+  }
 }
 
 contracts {
-    packageWithBaseClasses = 'hello'
-    baseClassMappings {
-        baseClassMapping(".*hello.*", "hello.BaseClass")
-    }
+  // We want to pick contracts from a Git repository
+  contractDependency {
+    stringNotation = "${project.group}:${project.name}:${project.version}"
+  }
+  /*
+  We reuse the contract dependency section to set up the path
+  to the folder that contains the contract definitions. In our case the
+  path will be /groupId/artifactId/version/contracts
+   */
+  contractRepository {
+    repositoryUrl = "git://https://github.com/VPanadiy/contracts-storage.git"
+    username = "username"
+    password = "password"
+  }
+  // The mode can't be classpath
+  contractsMode = "REMOTE"
+  // Base class mappings etc.
+  packageWithBaseClasses = 'hello'
+  baseClassMappings {
+    baseClassMapping(".*hello.*", "hello.BaseClass")
+  }
 }
+
+/*
+In this scenario we want to publish stubs to SCM whenever
+the `publish` task is executed
+*/
+publish.dependsOn("publishStubsToScm")
+
