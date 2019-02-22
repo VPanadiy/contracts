@@ -1,0 +1,7 @@
+dependencies {
+    testCompile('org.springframework.cloud:spring-cloud-starter-contract-stub-runner')
+}
+
+bootJar {
+    baseName = 'contract-rest-client'
+}

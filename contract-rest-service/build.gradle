@@ -1,0 +1,30 @@
+buildscript {
+    ext {
+        verifierVersion = '2.0.2.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${verifierVersion}"
+    }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'maven'
+apply plugin: 'spring-cloud-contract'
+
+dependencies {
+    testCompile('org.springframework.cloud:spring-cloud-starter-contract-verifier')
+}
+
+bootJar {
+    baseName = 'contract-rest-service'
+}
+
+contracts {
+    packageWithBaseClasses = 'hello'
+    baseClassMappings {
+        baseClassMapping(".*hello.*", "hello.BaseClass")
+    }
+}

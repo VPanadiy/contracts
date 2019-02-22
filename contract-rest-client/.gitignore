@@ -1,0 +1,63 @@
+
+#/-------------- IDE stuff -----------------\
+# Eclipse project files
+.classpath
+.project
+.settings/
+
+# Spring Tool Suite
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+
+# Intellij project files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# NetBeans
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+#\------------------------------------------/
+
+
+#/----------- build tool (Maven) -----------\
+# Java class files
+*.class
+
+# Maven
+/target
+/target/
+**/target/
+# Maven wrapper
+!.mvn/wrapper/maven-wrapper.jar
+#\------------------------------------------/
+
+
+#/----------- build tool (Gradle) -----------\
+# Java class files
+/build/
+
+# Gradle
+.gradle
+!gradle/wrapper/gradle-wrapper.jar
+#\------------------------------------------/
+
+
+#/-------------- OS and env. ---------------\
+# Mac
+.DS_Store/
+#\------------------------------------------/
+
+
+#/----------- project-specific -------------\
+#\------------------------------------------/
